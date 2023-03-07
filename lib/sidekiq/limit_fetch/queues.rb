@@ -23,7 +23,7 @@ module Sidekiq
         end.uniq
         @startup_queues = @queues.dup
 
-        dynamic = config.dig(:limit_fetch, :dynamic)
+        dynamic = config[:limit_fetch][:dynamic] || []
         
         if dynamic.is_a? Hash
           @dynamic         = true
