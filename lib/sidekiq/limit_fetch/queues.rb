@@ -23,11 +23,13 @@ module Sidekiq
         end.uniq
         @startup_queues = @queues.dup
 
-        if config[:dynamic].is_a? Hash
+        dynamic = config.dig(:limit_fetch, :dynamic)
+        
+        if dynamic.is_a? Hash
           @dynamic         = true
-          @dynamic_exclude = config[:dynamic][:exclude] || []
+          @dynamic_exclude = dynamic[:exclude] || []
         else
-          @dynamic = config[:dynamic]
+          @dynamic = dynamic
           @dynamic_exclude = []
         end
 
